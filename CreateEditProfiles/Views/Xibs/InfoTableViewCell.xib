@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="InfoTableViewCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rWe-db-2Ui" customClass="InfoTableViewCell" customModule="CreateEditProfiles" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rWe-db-2Ui" id="5mA-zq-lJl">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qib-oG-qHS">
+                        <rect key="frame" x="16" y="16" width="120" height="12"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="120" id="Maf-mH-oQC"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GSe-D2-fMr">
+                        <rect key="frame" x="168" y="8" width="230" height="28"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Qib-oG-qHS" firstAttribute="leading" secondItem="5mA-zq-lJl" secondAttribute="leading" constant="16" id="5TA-Ao-7aR"/>
+                    <constraint firstAttribute="bottom" secondItem="Qib-oG-qHS" secondAttribute="bottom" constant="16" id="Aa3-fe-DMJ"/>
+                    <constraint firstItem="GSe-D2-fMr" firstAttribute="leading" secondItem="Qib-oG-qHS" secondAttribute="trailing" constant="32" id="KXH-Gf-K3I"/>
+                    <constraint firstAttribute="bottom" secondItem="GSe-D2-fMr" secondAttribute="bottom" constant="8" id="bju-dw-kS2"/>
+                    <constraint firstItem="GSe-D2-fMr" firstAttribute="top" secondItem="5mA-zq-lJl" secondAttribute="top" constant="8" id="csI-lM-3hv"/>
+                    <constraint firstItem="Qib-oG-qHS" firstAttribute="top" secondItem="5mA-zq-lJl" secondAttribute="top" constant="16" id="qSY-YB-W1G"/>
+                    <constraint firstAttribute="trailing" secondItem="GSe-D2-fMr" secondAttribute="trailing" constant="16" id="unc-EA-MrO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="cellInfoTextField" destination="GSe-D2-fMr" id="TXK-hg-tUQ"/>
+                <outlet property="cellLabel" destination="Qib-oG-qHS" id="Hrn-Vc-8iJ"/>
+            </connections>
+            <point key="canvasLocation" x="425" y="52"/>
+        </tableViewCell>
+    </objects>
+</document>
