@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rx8-ki-xNe">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -51,7 +52,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="profileImage" destination="LxG-fi-MWs" id="WJT-RK-Pci"/>
+                                            <outlet property="profileImageView" destination="LxG-fi-MWs" id="WJT-RK-Pci"/>
                                             <outlet property="studentNameLabel" destination="w7G-58-CKo" id="cAt-4h-hOd"/>
                                             <segue destination="HYa-Ad-mEU" kind="show" identifier="toProfile" id="yYC-S2-5Xg"/>
                                         </connections>
@@ -181,7 +182,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="customBackground" destination="c4V-vI-MzB" id="oCU-Xb-mzX"/>
+                        <outlet property="customBackgroundView" destination="c4V-vI-MzB" id="oCU-Xb-mzX"/>
                         <outlet property="infoTable" destination="f1N-tN-Jth" id="5oW-bX-joz"/>
                         <outlet property="photoButton" destination="EGx-Ah-zsu" id="iEG-2D-eKJ"/>
                         <outlet property="studentImageView" destination="ZGs-qK-jGB" id="BJA-95-RAA"/>
@@ -276,7 +277,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="buttonCollectionView" destination="jJ9-Qk-E1n" id="PWl-3T-Ul0"/>
-                        <outlet property="customBackground" destination="J9C-3b-eRs" id="tuh-Tr-QFx"/>
+                        <outlet property="customBackgroundView" destination="J9C-3b-eRs" id="tuh-Tr-QFx"/>
                         <outlet property="infoTable" destination="5dS-nq-8nv" id="22M-HO-FBd"/>
                         <outlet property="nameLabel" destination="eW2-l1-dG5" id="hk6-7A-7zx"/>
                         <outlet property="studentImage" destination="6lR-J8-Jcm" id="uWV-ii-JI3"/>

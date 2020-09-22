@@ -5,22 +5,28 @@
 //  Created by Colin Murphy on 9/18/20.
 //
 
-import UIKit
 import MessageUI
+import UIKit
 
 class ProfileViewController: UIViewController {
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var infoTable: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var studentImage: UIImageView!
-    @IBOutlet weak var customBackground: UIView!
+    @IBOutlet weak var customBackgroundView: UIView!
     @IBOutlet weak var buttonCollectionView: UICollectionView!
+    
+    // MARK: - Class Variables
     
     var infoList: [(title: String, info: String)] = []
     var buttons: [(title: String, image: UIImage)] = []
     var student: Student?
     var studentIndex: (section:String, row:Int)?
 
+    // MARK: - View Life Cycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
@@ -28,7 +34,7 @@ class ProfileViewController: UIViewController {
         self.setupTable()
     }
     
-    // MARK: ACTIONS
+    // MARK: - ACTIONS
     
     @IBAction func editBarButton(_ sender: Any) {
         let sb = UIStoryboard.init(name: StoryboardId.main, bundle: nil)
@@ -41,8 +47,7 @@ class ProfileViewController: UIViewController {
     }
     
     func callUser() {
-        if let phone = self.student?.phone
-        {
+        if let phone = self.student?.phone {
             if let url = URL(string: "tel://+\(phone)"),
             UIApplication.shared.canOpenURL(url) {
                 if #available(iOS 10, *) {
@@ -82,7 +87,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    // MARK: SETUP
+    // MARK: - SETUP
     
     func setupInfo() {
         if let user = self.student {
@@ -112,11 +117,11 @@ class ProfileViewController: UIViewController {
         self.studentImage.backgroundColor = .systemGray4
         self.studentImage.layer.borderWidth = 1
         self.studentImage.layer.borderColor = UIColor.systemGray.cgColor
-        self.customBackground.addGradient(to: self.customBackground, with: [0.25, 1.0])
+        self.customBackgroundView.addGradient(to: self.customBackgroundView, with: [0.25, 1.0])
     }
 }
 
-// MARK: - UpdateUserProtocol
+// MARK: - UpdateStudentDelegate
 
 extension ProfileViewController: UpdateStudentDelegate {
     
@@ -165,7 +170,7 @@ extension ProfileViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellId.profileCollectionCell, for: indexPath) as? ProfileButtonCollectionViewCell else { fatalError("Could not create ProfileButtonCollectionViewCell") }
         
         cell.buttonLabel.text = self.buttons[indexPath.row].title
-        cell.buttonImage.image =  self.buttons[indexPath.row].image
+        cell.buttonImageView.image =  self.buttons[indexPath.row].image
         return cell
     }
 }
@@ -193,7 +198,13 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: MFMailComposeViewControllerDelegate {
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-         self.dismiss(animated: true, completion: nil)
+        
+        switch result {
+        case .failed:
+            self.showAlert(title: "Sorry", message: "We were unable to send your email :(")
+        default:
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -202,6 +213,13 @@ extension ProfileViewController: MFMailComposeViewControllerDelegate {
 extension ProfileViewController: MFMessageComposeViewControllerDelegate {
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        controller.dismiss(animated: true, completion: nil)
+        
+        switch result {
+        case .failed:
+            self.showAlert(title: "Sorry", message: "We were unable to send your message :(")
+        default:
+            self.dismiss(animated: true, completion: nil)
+        }
+        //controller.dismiss(animated: true, completion: nil)
     }
 }

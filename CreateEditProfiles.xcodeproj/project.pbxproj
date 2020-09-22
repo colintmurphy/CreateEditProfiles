@@ -13,6 +13,9 @@
 		2165D30D2514EB48009C9E0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2165D30B2514EB48009C9E0E /* Main.storyboard */; };
 		2165D30F2514EB49009C9E0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2165D30E2514EB49009C9E0E /* Assets.xcassets */; };
 		2165D3122514EB49009C9E0E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2165D3102514EB49009C9E0E /* LaunchScreen.storyboard */; };
+		21682D1E251A370A00F14D9A /* TextFieldType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21682D1D251A370A00F14D9A /* TextFieldType.swift */; };
+		21682D22251A379E00F14D9A /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21682D21251A379E00F14D9A /* CustomTextField.swift */; };
+		21682D26251A4D9B00F14D9A /* InfoTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21682D25251A4D9B00F14D9A /* InfoTableViewCellDelegate.swift */; };
 		217134372515971B00DB1732 /* ProfileButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217134362515971B00DB1732 /* ProfileButtonCollectionViewCell.swift */; };
 		2171343D25163D9C00DB1732 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171343C25163D9B00DB1732 /* UIViewController+Ext.swift */; };
 		2171344325164BFC00DB1732 /* UpdateStudentDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171344225164BFC00DB1732 /* UpdateStudentDelegate.swift */; };
@@ -37,6 +40,9 @@
 		2165D30E2514EB49009C9E0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2165D3112514EB49009C9E0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2165D3132514EB49009C9E0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21682D1D251A370A00F14D9A /* TextFieldType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldType.swift; sourceTree = "<group>"; };
+		21682D21251A379E00F14D9A /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		21682D25251A4D9B00F14D9A /* InfoTableViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCellDelegate.swift; sourceTree = "<group>"; };
 		217134362515971B00DB1732 /* ProfileButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileButtonCollectionViewCell.swift; sourceTree = "<group>"; };
 		2171343C25163D9B00DB1732 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		2171344225164BFC00DB1732 /* UpdateStudentDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateStudentDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +69,117 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		213F46A725193BFF002349AA /* CreateEditScreen */ = {
+			isa = PBXGroup;
+			children = (
+				21682D1C251A36FC00F14D9A /* Model */,
+				213F46A925193C17002349AA /* View */,
+				213F46AA25193C1B002349AA /* Controller */,
+			);
+			path = CreateEditScreen;
+			sourceTree = "<group>";
+		};
+		213F46A925193C17002349AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				21FB32992514EC9800A4C478 /* TableViewCells */,
+				21FB32AB2514F20700A4C478 /* Xibs */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		213F46AA25193C1B002349AA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				21FB32942514EC8700A4C478 /* CreateEditViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		213F46AB25193C4F002349AA /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				217134362515971B00DB1732 /* ProfileButtonCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		213F46AC25193C77002349AA /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				21FB32AC2514F22600A4C478 /* ProfileButton.xib */,
+			);
+			path = Xib;
+			sourceTree = "<group>";
+		};
+		213F46AD25193C97002349AA /* ProfileScreen */ = {
+			isa = PBXGroup;
+			children = (
+				213F46AF25193CAD002349AA /* View */,
+				213F46B025193CB3002349AA /* Controller */,
+			);
+			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		213F46AF25193CAD002349AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				213F46AB25193C4F002349AA /* CollectionViewCell */,
+				213F46AC25193C77002349AA /* Xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		213F46B025193CB3002349AA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				21FB32902514EC6A00A4C478 /* ProfileViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		213F46B125193D2B002349AA /* ListScreen */ = {
+			isa = PBXGroup;
+			children = (
+				213F46B425193D3A002349AA /* Model */,
+				213F46B325193D36002349AA /* View */,
+				213F46B225193D31002349AA /* Controller */,
+			);
+			path = ListScreen;
+			sourceTree = "<group>";
+		};
+		213F46B225193D31002349AA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2165D3092514EB48009C9E0E /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		213F46B325193D36002349AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				213F46B525193D4A002349AA /* TableViewCell */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		213F46B425193D3A002349AA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				21FB32A72514EEBF00A4C478 /* Student.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		213F46B525193D4A002349AA /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				21FB329F2514ECE000A4C478 /* UserTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
 		2165D2F92514EB48009C9E0E = {
 			isa = PBXGroup;
 			children = (
@@ -83,31 +200,23 @@
 			isa = PBXGroup;
 			children = (
 				2165D30B2514EB48009C9E0E /* Main.storyboard */,
-				21FB32A62514EEB500A4C478 /* Model */,
-				217134392515A63C00DB1732 /* Views */,
-				21FB32932514EC6D00A4C478 /* ViewControllers */,
+				213F46B125193D2B002349AA /* ListScreen */,
+				213F46AD25193C97002349AA /* ProfileScreen */,
+				213F46A725193BFF002349AA /* CreateEditScreen */,
 				2177A78C2516BC64003207E8 /* Helpers */,
 				21FB329B2514ECB200A4C478 /* Support */,
 			);
 			path = CreateEditProfiles;
 			sourceTree = "<group>";
 		};
-		21713430251596A200DB1732 /* CollectionViewCells */ = {
+		21682D1C251A36FC00F14D9A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				217134362515971B00DB1732 /* ProfileButtonCollectionViewCell.swift */,
+				21682D21251A379E00F14D9A /* CustomTextField.swift */,
+				21682D25251A4D9B00F14D9A /* InfoTableViewCellDelegate.swift */,
+				21682D1D251A370A00F14D9A /* TextFieldType.swift */,
 			);
-			path = CollectionViewCells;
-			sourceTree = "<group>";
-		};
-		217134392515A63C00DB1732 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				21713430251596A200DB1732 /* CollectionViewCells */,
-				21FB32992514EC9800A4C478 /* TableViewCells */,
-				21FB32AB2514F20700A4C478 /* Xibs */,
-			);
-			path = Views;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		2171343B25163D7900DB1732 /* Extensions */ = {
@@ -131,27 +240,17 @@
 		2177A78C2516BC64003207E8 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2177A7852516A174003207E8 /* Constants.swift */,
 				2171343B25163D7900DB1732 /* Extensions */,
 				2171344125164BEA00DB1732 /* Protocols */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		21FB32932514EC6D00A4C478 /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				21FB32942514EC8700A4C478 /* CreateEditViewController.swift */,
-				21FB32902514EC6A00A4C478 /* ProfileViewController.swift */,
-				2165D3092514EB48009C9E0E /* ViewController.swift */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
 		21FB32992514EC9800A4C478 /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
 				21FB329C2514ECD800A4C478 /* InfoTableViewCell.swift */,
-				21FB329F2514ECE000A4C478 /* UserTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -168,20 +267,10 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
-		21FB32A62514EEB500A4C478 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				2177A7852516A174003207E8 /* Constants.swift */,
-				21FB32A72514EEBF00A4C478 /* Student.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		21FB32AB2514F20700A4C478 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
 				21FB32A22514ED4400A4C478 /* InfoTableViewCell.xib */,
-				21FB32AC2514F22600A4C478 /* ProfileButton.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -262,15 +351,18 @@
 				2165D3062514EB48009C9E0E /* AppDelegate.swift in Sources */,
 				2171343D25163D9C00DB1732 /* UIViewController+Ext.swift in Sources */,
 				2171344A251669AD00DB1732 /* String+Ext.swift in Sources */,
+				21682D22251A379E00F14D9A /* CustomTextField.swift in Sources */,
 				21FB32A02514ECE000A4C478 /* UserTableViewCell.swift in Sources */,
 				21FB32912514EC6A00A4C478 /* ProfileViewController.swift in Sources */,
 				21FB32A82514EEBF00A4C478 /* Student.swift in Sources */,
+				21682D26251A4D9B00F14D9A /* InfoTableViewCellDelegate.swift in Sources */,
 				2171344325164BFC00DB1732 /* UpdateStudentDelegate.swift in Sources */,
 				217134372515971B00DB1732 /* ProfileButtonCollectionViewCell.swift in Sources */,
 				2171344625164F2400DB1732 /* UIView+Ext.swift in Sources */,
 				21FB329D2514ECD800A4C478 /* InfoTableViewCell.swift in Sources */,
 				2177A7862516A174003207E8 /* Constants.swift in Sources */,
 				2165D3082514EB48009C9E0E /* SceneDelegate.swift in Sources */,
+				21682D1E251A370A00F14D9A /* TextFieldType.swift in Sources */,
 				21FB32952514EC8700A4C478 /* CreateEditViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,7 +440,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -403,7 +495,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -421,6 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 69P6K7C2T4;
 				INFOPLIST_FILE = CreateEditProfiles/Support/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,6 +533,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 69P6K7C2T4;
 				INFOPLIST_FILE = CreateEditProfiles/Support/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

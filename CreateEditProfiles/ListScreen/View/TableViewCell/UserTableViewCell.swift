@@ -9,7 +9,7 @@ import UIKit
 
 class UserTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var studentNameLabel: UILabel!
     
     override func awakeFromNib() {
@@ -22,9 +22,9 @@ class UserTableViewCell: UITableViewCell {
     }
     
     func configure() {
-        self.profileImage.backgroundColor = .systemGray4
-        self.profileImage.layer.borderWidth = 1
-        self.profileImage.layer.borderColor = UIColor.systemGray.cgColor
-        self.profileImage.layer.cornerRadius = self.profileImage.bounds.height/2
+        self.profileImageView.backgroundColor = .systemGray4
+        self.profileImageView.layer.borderWidth = 1
+        self.profileImageView.layer.borderColor = UIColor.systemGray.cgColor
+        self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.height/2
     }
 }

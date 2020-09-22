@@ -10,15 +10,20 @@ import UIKit
 class InfoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cellLabel: UILabel!
-    @IBOutlet weak var cellInfoTextField: UITextField!
+    @IBOutlet weak var cellInfoTextField: CustomTextField!
+    
+    weak var infoDelegate: InfoTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
+    }
+    
+    @IBAction func textDidChange(_ textField: CustomTextField) {
+        self.infoDelegate?.didChangeInTextField(textField)
     }
 }

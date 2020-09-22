@@ -9,8 +9,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var studentTable: UITableView!
     @IBOutlet weak var emptyListLabel: UILabel!
+    
+    // MARK: - Class Variables
     
     var sections: [String] = []
     var studentList: [String: [(contact: Student, isFavorite: Bool)]] = [:] {
@@ -26,11 +30,15 @@ class ViewController: UIViewController {
         }
     }
     
+    // MARK: - View Life Cycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.studentTable.isHidden = true
     }
 
+    // MARK: - Actions
+    
     @IBAction func addContactBarButton(_ sender: Any) {
         let sb = UIStoryboard.init(name: StoryboardId.main, bundle: nil)
         if let vc = sb.instantiateViewController(identifier: StoryboardId.createEditVC) as? CreateEditViewController {
@@ -39,6 +47,8 @@ class ViewController: UIViewController {
             self.present(nav, animated: true, completion: nil)
         }
     }
+    
+    // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == SegueId.toProfile {
@@ -149,7 +159,7 @@ extension ViewController: UITableViewDataSource {
             
             if let user = self.studentList[key]?[indexPath.row] {
                 cell.studentNameLabel.text = "\(user.contact.firstName) \(user.contact.lastName)"
-                cell.profileImage.image = user.contact.profileImage
+                cell.profileImageView.image = user.contact.profileImage
                 if user.isFavorite {
                     cell.accessoryType = .checkmark
                 } else {

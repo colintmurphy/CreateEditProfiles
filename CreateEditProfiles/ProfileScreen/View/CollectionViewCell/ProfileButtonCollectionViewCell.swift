@@ -11,7 +11,7 @@ class ProfileButtonCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var buttonLabel: UILabel!
     @IBOutlet weak var buttonView: UIView!
-    @IBOutlet weak var buttonImage: UIImageView!
+    @IBOutlet weak var buttonImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

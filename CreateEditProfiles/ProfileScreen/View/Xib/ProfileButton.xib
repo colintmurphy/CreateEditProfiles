@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -54,7 +55,7 @@
             </collectionViewCellContentView>
             <size key="customSize" width="119" height="99"/>
             <connections>
-                <outlet property="buttonImage" destination="cSP-sO-rE2" id="efF-TM-2Xr"/>
+                <outlet property="buttonImageView" destination="cSP-sO-rE2" id="efF-TM-2Xr"/>
                 <outlet property="buttonLabel" destination="NiB-dg-Ffe" id="WnC-0R-IOS"/>
                 <outlet property="buttonView" destination="qZ7-k3-Qti" id="hbi-bB-Zp2"/>
             </connections>
