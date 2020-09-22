@@ -26,13 +26,6 @@ class CreateEditViewController: UIViewController {
     
     override func viewDidLoad() {
         
-        // is iPhoneSE
-        /*
-        if UIScreen.main.nativeBounds.height == 1334.0 {
-            print("iphoneSE")
-            NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        }*/
-        
         super.viewDidLoad()
         self.setupUI()
         self.setupInfo()
@@ -127,15 +120,7 @@ class CreateEditViewController: UIViewController {
     
     @objc func dismissKeyboard() {
         self.view.endEditing(true)
-        
-        //if UIScreen.main.nativeBounds.height == 1334.0 {
-        //    self.view.frame.origin.y = self.view.frame.origin.y + 150
-        //}
     }
-    
-    //@objc func keyboardWillShow() {
-    //    self.view.frame.origin.y = -150 // Move view 50 points upward
-    //}
 }
 
 // MARK: - UITableViewDataSource
@@ -170,7 +155,7 @@ extension CreateEditViewController: UITableViewDataSource {
         cell.cellLabel.text = self.infoList[indexPath.row].title
         cell.cellInfoTextField.text = self.infoList[indexPath.row].info
         cell.cellInfoTextField.clearButtonMode = .whileEditing
-        cell.cellInfoTextField.delegate = self // UITextFieldDelegate
+        cell.cellInfoTextField.delegate = self
         
         return cell
     }
@@ -228,6 +213,35 @@ extension CreateEditViewController: UIImagePickerControllerDelegate, UINavigatio
 // MARK: - UITextFieldDelegate
 
 extension CreateEditViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        // iPhone SE, and bottom TextField: move screen up
+        if UIScreen.main.nativeBounds.height <= 1334.0 {
+            let coordinateOfTextField = textField.convert(textField.frame.origin, to:self.view)
+            print(coordinateOfTextField.y)
+            
+            if coordinateOfTextField.y == 416 {
+                UIView.animate(withDuration: 0.25) {
+                    self.view.frame.origin.y = -100
+                }
+            }
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        // iPhone SE, and bottom TextField: move screen back down
+        if UIScreen.main.nativeBounds.height <= 1334.0 {
+            let coordinateOfTextField = textField.convert(textField.frame.origin, to:self.view)
+            
+            if coordinateOfTextField.y == 416 {
+                UIView.animate(withDuration: 0.25) {
+                    self.view.frame.origin.y = 0
+                }
+            }
+        }
+    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 

@@ -28,6 +28,7 @@ class ProfileViewController: UIViewController {
     // MARK: - View Life Cycles
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.setupUI()
         self.setupInfo()
@@ -37,6 +38,7 @@ class ProfileViewController: UIViewController {
     // MARK: - ACTIONS
     
     @IBAction func editBarButton(_ sender: Any) {
+        
         let sb = UIStoryboard.init(name: StoryboardId.main, bundle: nil)
         if let vc = sb.instantiateViewController(identifier: StoryboardId.createEditVC) as? CreateEditViewController {
             vc.student = self.student
@@ -47,6 +49,7 @@ class ProfileViewController: UIViewController {
     }
     
     func callUser() {
+        
         if let phone = self.student?.phone {
             if let url = URL(string: "tel://+\(phone)"),
             UIApplication.shared.canOpenURL(url) {
@@ -62,6 +65,7 @@ class ProfileViewController: UIViewController {
     }
     
     func emailUser() {
+        
         guard MFMailComposeViewController.canSendMail() else {
             self.showAlert(title: "Sorry", message: "Looks like we could not process your email at this time.")
             return
@@ -75,6 +79,7 @@ class ProfileViewController: UIViewController {
     }
     
     func messageUser() {
+        
         guard MFMessageComposeViewController.canSendText() else {
             self.showAlert(title: "Sorry", message: "Looks like we could not process your message at this time.")
             return
@@ -90,6 +95,7 @@ class ProfileViewController: UIViewController {
     // MARK: - SETUP
     
     func setupInfo() {
+        
         if let user = self.student {
             self.nameLabel.text = "\(user.firstName) \(user.lastName)"
             self.studentImage.image = user.profileImage
@@ -102,6 +108,7 @@ class ProfileViewController: UIViewController {
     }
     
     func setupTable() {
+        
         self.infoTable.register(UINib(nibName: NibId.infoTableCell, bundle: nil), forCellReuseIdentifier: CellId.infoTableCell)
         self.infoTable.allowsSelection = false
         self.infoTable.isScrollEnabled = false
@@ -113,6 +120,7 @@ class ProfileViewController: UIViewController {
     }
     
     func setupUI() {
+        
         self.studentImage.layer.cornerRadius = self.studentImage.bounds.height/2
         self.studentImage.backgroundColor = .systemGray4
         self.studentImage.layer.borderWidth = 1
@@ -128,6 +136,7 @@ extension ProfileViewController: UpdateStudentDelegate {
     func updateStudent(student: Student?, at index: (section:String, row:Int)?) {
         
         if let user = student {
+            
             self.student = user
             self.nameLabel.text = "\(user.firstName) \(user.lastName)"
             self.studentImage.image = user.profileImage
@@ -148,6 +157,7 @@ extension ProfileViewController: UpdateStudentDelegate {
 extension ProfileViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         if indexPath.row == 0 {
             self.messageUser()
         } else if indexPath.row == 1 {
@@ -167,6 +177,7 @@ extension ProfileViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellId.profileCollectionCell, for: indexPath) as? ProfileButtonCollectionViewCell else { fatalError("Could not create ProfileButtonCollectionViewCell") }
         
         cell.buttonLabel.text = self.buttons[indexPath.row].title
@@ -184,6 +195,7 @@ extension ProfileViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellId.infoTableCell) as? InfoTableViewCell else { fatalError("Could not create InfoTableViewCell") }
         
         cell.cellLabel.text = self.infoList[indexPath.row].title
@@ -220,6 +232,5 @@ extension ProfileViewController: MFMessageComposeViewControllerDelegate {
         default:
             self.dismiss(animated: true, completion: nil)
         }
-        //controller.dismiss(animated: true, completion: nil)
     }
 }
