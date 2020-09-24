@@ -18,6 +18,7 @@ class CreateEditViewController: UIViewController {
     
     // MARK: - Class Variables
     
+    var activeTextField: UITextField?
     weak var studentDelegate: UpdateStudentDelegate?
     var infoList: [(title: String, info: String, type: TextFieldType)] = []
     var student: Student?
@@ -47,7 +48,7 @@ class CreateEditViewController: UIViewController {
         if let isValidFirstName = student?.firstName.isValidName(),
            let isValidLastName = student?.lastName.isValidName(),
            let isValidNumber = student?.phone.isValidPhoneNumber(),
-           let isValidEmail = student?.email.isValidEmail()  {
+           let isValidEmail = student?.email.isValidEmail() {
             
             if !isValidFirstName {
                 self.showAlert(title: "First Name", message: "Please make sure your first name only contains letters and is between 3 and 35 letters.")
@@ -116,10 +117,33 @@ class CreateEditViewController: UIViewController {
         
         self.customBackgroundView.addGradient(to: self.customBackgroundView, with: [0.0, 1.0])
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard)))
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     @objc func dismissKeyboard() {
+        
+        //self.infoTable.scrollRectToVisible(.zero, animated: true)
+        self.infoTable.contentOffset = .zero
+        self.activeTextField = nil
         self.view.endEditing(true)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.infoTable.contentInset = UIEdgeInsets(top: self.infoTable.contentInset.top, left: 0, bottom: keyboardSize.height, right: 0)
+            
+            // If active text field is hidden by keyboard, scroll it so it's visible
+            var aRect: CGRect = self.view.frame
+            aRect.size.height -= keyboardSize.height
+            
+            if let textField = self.activeTextField,
+               let activeTextFieldRect = textField.superview?.superview?.frame {
+                
+                self.infoTable.scrollRectToVisible(activeTextFieldRect, animated:true)
+            }
+        }
     }
 }
 
@@ -156,7 +180,6 @@ extension CreateEditViewController: UITableViewDataSource {
         cell.cellInfoTextField.text = self.infoList[indexPath.row].info
         cell.cellInfoTextField.clearButtonMode = .whileEditing
         cell.cellInfoTextField.delegate = self
-        
         return cell
     }
 }
@@ -214,35 +237,6 @@ extension CreateEditViewController: UIImagePickerControllerDelegate, UINavigatio
 
 extension CreateEditViewController: UITextFieldDelegate {
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-        // iPhone SE, and bottom TextField: move screen up
-        if UIScreen.main.nativeBounds.height <= 1334.0 {
-            let coordinateOfTextField = textField.convert(textField.frame.origin, to:self.view)
-            print(coordinateOfTextField.y)
-            
-            if coordinateOfTextField.y == 416 {
-                UIView.animate(withDuration: 0.25) {
-                    self.view.frame.origin.y = -100
-                }
-            }
-        }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        // iPhone SE, and bottom TextField: move screen back down
-        if UIScreen.main.nativeBounds.height <= 1334.0 {
-            let coordinateOfTextField = textField.convert(textField.frame.origin, to:self.view)
-            
-            if coordinateOfTextField.y == 416 {
-                UIView.animate(withDuration: 0.25) {
-                    self.view.frame.origin.y = 0
-                }
-            }
-        }
-    }
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
         // if deleting: allow it
@@ -258,7 +252,12 @@ extension CreateEditViewController: UITextFieldDelegate {
         } else if textField.accessibilityIdentifier == "email" {
             if string == " " || textField.text?.count ?? 0 >= 60 && range.upperBound < 61 { return false }
         }
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
+        self.activeTextField = textField
         return true
     }
 }
