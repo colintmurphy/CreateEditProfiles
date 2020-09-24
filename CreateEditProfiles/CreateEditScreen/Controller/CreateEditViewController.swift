@@ -121,6 +121,8 @@ class CreateEditViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
+    // MARK: - Keyboard
+    
     @objc func dismissKeyboard() {
         
         //self.infoTable.scrollRectToVisible(.zero, animated: true)
@@ -132,16 +134,12 @@ class CreateEditViewController: UIViewController {
     @objc func keyboardWillShow(notification: NSNotification) {
         
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.infoTable.contentInset = UIEdgeInsets(top: self.infoTable.contentInset.top, left: 0, bottom: keyboardSize.height, right: 0)
-            
-            // If active text field is hidden by keyboard, scroll it so it's visible
-            var aRect: CGRect = self.view.frame
-            aRect.size.height -= keyboardSize.height
             
             if let textField = self.activeTextField,
                let activeTextFieldRect = textField.superview?.superview?.frame {
                 
-                self.infoTable.scrollRectToVisible(activeTextFieldRect, animated:true)
+                self.infoTable.contentInset = UIEdgeInsets(top: self.infoTable.contentInset.top, left: 0, bottom: keyboardSize.height, right: 0)
+                self.infoTable.scrollRectToVisible(activeTextFieldRect, animated: true)
             }
         }
     }
