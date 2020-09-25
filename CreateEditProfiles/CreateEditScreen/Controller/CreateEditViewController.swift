@@ -18,8 +18,8 @@ class CreateEditViewController: UIViewController {
     
     // MARK: - Class Variables
     
-    var activeTextField: UITextField?
     weak var studentDelegate: UpdateStudentDelegate?
+    var activeTextField: UITextField?
     var infoList: [(title: String, info: String, type: TextFieldType)] = []
     var student: Student?
     
@@ -103,6 +103,7 @@ class CreateEditViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = cancel
         self.navigationItem.rightBarButtonItem = done
         self.navigationController?.navigationBar.tintColor = AppColor.primaryColor
+        self.customBackgroundView.addGradient(to: self.customBackgroundView, with: [0.0, 1.0])
         
         self.photoButton.backgroundColor = AppColor.primaryColor
         self.photoButton.layer.cornerRadius = self.photoButton.bounds.height/2
@@ -115,17 +116,14 @@ class CreateEditViewController: UIViewController {
         self.studentImageView.layer.borderWidth = 1.0
         self.studentImageView.layer.borderColor = UIColor.systemGray.cgColor
         
-        self.customBackgroundView.addGradient(to: self.customBackgroundView, with: [0.0, 1.0])
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard)))
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     // MARK: - Keyboard
     
     @objc func dismissKeyboard() {
         
-        //self.infoTable.scrollRectToVisible(.zero, animated: true)
         self.infoTable.contentOffset = .zero
         self.activeTextField = nil
         self.view.endEditing(true)
@@ -136,10 +134,10 @@ class CreateEditViewController: UIViewController {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             
             if let textField = self.activeTextField,
-               let activeTextFieldRect = textField.superview?.superview?.frame {
+               let tableViewRect = textField.superview?.superview?.frame {
                 
                 self.infoTable.contentInset = UIEdgeInsets(top: self.infoTable.contentInset.top, left: 0, bottom: keyboardSize.height, right: 0)
-                self.infoTable.scrollRectToVisible(activeTextFieldRect, animated: true)
+                self.infoTable.scrollRectToVisible(tableViewRect, animated: true)
             }
         }
     }
@@ -253,10 +251,12 @@ extension CreateEditViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         self.activeTextField = textField
-        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.activeTextField = nil
     }
 }
 
