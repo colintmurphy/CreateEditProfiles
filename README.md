@@ -1,6 +1,6 @@
 # CreateEditProfiles
 
-Capabilities:
+## Capabilities:
 - Add students to list, sectioned by first letter in first name
 - Edit student profiles
 - Profiles contain first name, last name, profile image, phone number, and email
@@ -8,19 +8,19 @@ Capabilities:
 - Profile image can be set using the camera if it is available on the device
 - UI is friendly in Dark and Light mode
 
-About:
+## About:
 - Data is passed between view controllers using delegation
 - Buttons are added using UICollectionViewCells
 - Cells are created in Xib files
 
-Utalizes:
+## Utalizes:
 - UIImagePickerControllerDelegate
 - MFMailComposeViewControllerDelegate
 - MFMessageComposeViewControllerDelegate
 - UITableView
 - UICollectionView
 
-Images:
+## Images:
 
 ![alt text](https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-09-19%20at%2022.15.02.png)
 ![alt text](https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-09-19%20at%2022.15.08.png)
