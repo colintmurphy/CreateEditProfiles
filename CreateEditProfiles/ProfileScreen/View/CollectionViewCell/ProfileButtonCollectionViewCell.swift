@@ -13,6 +13,8 @@ class ProfileButtonCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var buttonImageView: UIImageView!
     
+    var buttonType: ProfileButtonType?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.configure()

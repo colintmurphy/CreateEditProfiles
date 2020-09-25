@@ -158,24 +158,29 @@ extension CreateEditViewController: UITableViewDataSource {
         let fieldType = self.infoList[indexPath.row].type
         cell.cellInfoTextField.fieldType = fieldType
         cell.infoDelegate = self
+        cell.cellInfoTextField.delegate = self
+        cell.cellInfoTextField.keyboardType = .default
+        cell.cellInfoTextField.clearButtonMode = .whileEditing
+        cell.cellInfoTextField.autocapitalizationType = .words
+        cell.cellInfoTextField.accessibilityIdentifier = "name"
         
         switch fieldType {
-        case .firstName, .lastName:
-            cell.cellInfoTextField.keyboardType = .default
-            cell.cellInfoTextField.autocapitalizationType = .words
-            cell.cellInfoTextField.accessibilityIdentifier = "name"
+        case .firstName:
+            cell.cellInfoTextField.text = self.student?.firstName
+        case .lastName:
+            cell.cellInfoTextField.text = self.student?.lastName
         case .email:
             cell.cellInfoTextField.keyboardType = .emailAddress
+            cell.cellInfoTextField.autocapitalizationType = .none
             cell.cellInfoTextField.accessibilityIdentifier = "email"
+            cell.cellInfoTextField.text = self.student?.email
         case .phone:
             cell.cellInfoTextField.keyboardType = .phonePad
             cell.cellInfoTextField.accessibilityIdentifier = "phone"
+            cell.cellInfoTextField.text = self.student?.phone
         }
         
         cell.cellLabel.text = self.infoList[indexPath.row].title
-        cell.cellInfoTextField.text = self.infoList[indexPath.row].info
-        cell.cellInfoTextField.clearButtonMode = .whileEditing
-        cell.cellInfoTextField.delegate = self
         return cell
     }
 }

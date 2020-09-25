@@ -8,6 +8,7 @@
 import UIKit
 
 struct Student {
+    
     var firstName: String
     var lastName: String
     var phone: String

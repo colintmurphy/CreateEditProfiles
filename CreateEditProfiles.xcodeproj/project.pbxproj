@@ -22,6 +22,7 @@
 		2171344625164F2400DB1732 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2171344525164F2400DB1732 /* UIView+Ext.swift */; };
 		2171344A251669AD00DB1732 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21713449251669AD00DB1732 /* String+Ext.swift */; };
 		2177A7862516A174003207E8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2177A7852516A174003207E8 /* Constants.swift */; };
+		217B5B70251E540000731A23 /* ProfileButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B5B6F251E540000731A23 /* ProfileButtonType.swift */; };
 		21FB32912514EC6A00A4C478 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FB32902514EC6A00A4C478 /* ProfileViewController.swift */; };
 		21FB32952514EC8700A4C478 /* CreateEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FB32942514EC8700A4C478 /* CreateEditViewController.swift */; };
 		21FB329D2514ECD800A4C478 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FB329C2514ECD800A4C478 /* InfoTableViewCell.swift */; };
@@ -49,6 +50,7 @@
 		2171344525164F2400DB1732 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		21713449251669AD00DB1732 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		2177A7852516A174003207E8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		217B5B6F251E540000731A23 /* ProfileButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileButtonType.swift; sourceTree = "<group>"; };
 		21FB32902514EC6A00A4C478 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		21FB32942514EC8700A4C478 /* CreateEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditViewController.swift; sourceTree = "<group>"; };
 		21FB329C2514ECD800A4C478 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		213F46AD25193C97002349AA /* ProfileScreen */ = {
 			isa = PBXGroup;
 			children = (
+				217B5B6E251E53DA00731A23 /* Model */,
 				213F46AF25193CAD002349AA /* View */,
 				213F46B025193CB3002349AA /* Controller */,
 			);
@@ -168,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				21FB32A72514EEBF00A4C478 /* Student.swift */,
+				2171344225164BFC00DB1732 /* UpdateStudentDelegate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -229,22 +233,21 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		2171344125164BEA00DB1732 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				2171344225164BFC00DB1732 /* UpdateStudentDelegate.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		2177A78C2516BC64003207E8 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				2177A7852516A174003207E8 /* Constants.swift */,
 				2171343B25163D7900DB1732 /* Extensions */,
-				2171344125164BEA00DB1732 /* Protocols */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		217B5B6E251E53DA00731A23 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				217B5B6F251E540000731A23 /* ProfileButtonType.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		21FB32992514EC9800A4C478 /* TableViewCells */ = {
@@ -362,6 +365,7 @@
 				21FB329D2514ECD800A4C478 /* InfoTableViewCell.swift in Sources */,
 				2177A7862516A174003207E8 /* Constants.swift in Sources */,
 				2165D3082514EB48009C9E0E /* SceneDelegate.swift in Sources */,
+				217B5B70251E540000731A23 /* ProfileButtonType.swift in Sources */,
 				21682D1E251A370A00F14D9A /* TextFieldType.swift in Sources */,
 				21FB32952514EC8700A4C478 /* CreateEditViewController.swift in Sources */,
 			);

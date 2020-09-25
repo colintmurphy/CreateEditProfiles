@@ -39,9 +39,11 @@ class ViewController: UIViewController {
 
     // MARK: - Actions
     
-    @IBAction func addContactBarButton(_ sender: Any) {
+    @IBAction func addContact(_ sender: Any) {
+        
         let sb = UIStoryboard.init(name: StoryboardId.main, bundle: nil)
         if let vc = sb.instantiateViewController(identifier: StoryboardId.createEditVC) as? CreateEditViewController {
+            
             vc.studentDelegate = self
             let nav = UINavigationController(rootViewController: vc)
             self.present(nav, animated: true, completion: nil)
@@ -51,9 +53,11 @@ class ViewController: UIViewController {
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == SegueId.toProfile {
             if let detailVC = segue.destination as? ProfileViewController {
                 if let index = studentTable.indexPathForSelectedRow {
+                    
                     let key = self.sections[index.section]
                     let user = self.studentList[key]?[index.row].contact
                     detailVC.student = user
@@ -86,6 +90,7 @@ extension ViewController: UpdateStudentDelegate {
                     contactsForSection.append((contact: user, isFavorite: false))
                     contactsForSection.sort(by: { "\($0.contact.firstName) \($0.contact.lastName)" < "\($1.contact.firstName) \($1.contact.lastName)" })
                     self.studentList[char] = contactsForSection
+                    
                 } else {
                     // first student to enter section
                     self.sections.append(char)
@@ -100,6 +105,7 @@ extension ViewController: UpdateStudentDelegate {
                     // IF the student's first name did not change
                     self.studentList[char]?[index.row].contact = user
                     self.studentList[char]?.sort(by: { "\($0.contact.firstName) \($0.contact.lastName)" < "\($1.contact.firstName) \($1.contact.lastName)" })
+                    
                 } else {
                     // student's first name DID change
                     insert(char: char, user: user)
@@ -142,6 +148,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if self.sections.count > 0 {
             let key = self.sections[section]
             if let count = self.studentList[key]?.count {
@@ -152,6 +159,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellId.userTableCell) as? UserTableViewCell else { fatalError("Could not create UserTableViewCell") }
         
         if self.sections.count > 0 {
@@ -160,11 +168,6 @@ extension ViewController: UITableViewDataSource {
             if let user = self.studentList[key]?[indexPath.row] {
                 cell.studentNameLabel.text = "\(user.contact.firstName) \(user.contact.lastName)"
                 cell.profileImageView.image = user.contact.profileImage
-                if user.isFavorite {
-                    cell.accessoryType = .checkmark
-                } else {
-                    cell.accessoryType = .none
-                }
             }
         }
         return cell

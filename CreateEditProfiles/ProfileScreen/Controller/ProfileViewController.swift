@@ -20,10 +20,10 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Class Variables
     
-    var infoList: [(title: String, info: String)] = []
-    var buttons: [(title: String, image: UIImage)] = []
-    var student: Student?
+    var infoList: [(title: String, info: String, type: ProfileButtonType)] = []
+    var buttons: [(title: String, image: UIImage, type: ProfileButtonType)] = []
     var studentIndex: (section:String, row:Int)?
+    var student: Student?
 
     // MARK: - View Life Cycles
     
@@ -37,10 +37,11 @@ class ProfileViewController: UIViewController {
     
     // MARK: - ACTIONS
     
-    @IBAction func editBarButton(_ sender: Any) {
+    @IBAction func edit(_ sender: Any) {
         
         let sb = UIStoryboard.init(name: StoryboardId.main, bundle: nil)
         if let vc = sb.instantiateViewController(identifier: StoryboardId.createEditVC) as? CreateEditViewController {
+            
             vc.student = self.student
             vc.studentDelegate = self
             let nav = UINavigationController(rootViewController: vc)
@@ -99,12 +100,12 @@ class ProfileViewController: UIViewController {
         if let user = self.student {
             self.nameLabel.text = "\(user.firstName) \(user.lastName)"
             self.studentImage.image = user.profileImage
-            self.infoList.append(("mobile", user.phone))
-            self.infoList.append(("email", user.email))
+            self.infoList.append((title: "mobile", info: user.phone, type: .phone))
+            self.infoList.append((title: "email", info: user.email, type: .email))
         }
-        self.buttons.append((title: "message", image: AppImage.message))
-        self.buttons.append((title: "call", image: AppImage.call))
-        self.buttons.append((title: "email", image: AppImage.email))
+        self.buttons.append((title: "message", image: AppImage.message, type: .message))
+        self.buttons.append((title: "call", image: AppImage.call, type: .phone))
+        self.buttons.append((title: "email", image: AppImage.email, type: .email))
     }
     
     func setupTable() {
@@ -140,8 +141,14 @@ extension ProfileViewController: UpdateStudentDelegate {
             self.student = user
             self.nameLabel.text = "\(user.firstName) \(user.lastName)"
             self.studentImage.image = user.profileImage
-            self.infoList[0].info = user.phone
-            self.infoList[1].info = user.email
+            
+            for (index, item) in self.infoList.enumerated() {
+                if item.type == .phone {
+                    self.infoList[index].info = user.phone
+                } else if item.type == .email {
+                    self.infoList[index].info = user.email
+                }
+            }
             self.infoTable.reloadData()
             
             if let index = self.studentIndex,
@@ -158,12 +165,17 @@ extension ProfileViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if indexPath.row == 0 {
-            self.messageUser()
-        } else if indexPath.row == 1 {
-            self.callUser()
-        } else if indexPath.row == 2 {
+        let cell = collectionView.cellForItem(at: indexPath) as? ProfileButtonCollectionViewCell
+        
+        switch cell?.buttonType {
+        case .email:
             self.emailUser()
+        case.phone:
+            self.callUser()
+        case.message:
+            self.messageUser()
+        case .none:
+            break
         }
     }
 }
@@ -180,6 +192,7 @@ extension ProfileViewController: UICollectionViewDataSource {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellId.profileCollectionCell, for: indexPath) as? ProfileButtonCollectionViewCell else { fatalError("Could not create ProfileButtonCollectionViewCell") }
         
+        cell.buttonType = self.buttons[indexPath.row].type
         cell.buttonLabel.text = self.buttons[indexPath.row].title
         cell.buttonImageView.image =  self.buttons[indexPath.row].image
         return cell
