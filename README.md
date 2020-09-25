@@ -21,6 +21,7 @@ Utalizes:
 - UICollectionView
 
 Images:
+
 ![alt text](https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-09-19%20at%2022.15.02.png)
 ![alt text](https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-09-19%20at%2022.15.08.png)
 ![alt text](https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-09-19%20at%2022.15.15.png)
