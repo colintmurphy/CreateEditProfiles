@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ListViewController: UIViewController {
     
     // MARK: - Outlets
     
@@ -33,13 +33,25 @@ class ViewController: UIViewController {
     // MARK: - View Life Cycles
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.studentTable.isHidden = true
+        self.loadDataFromPlist()
+        
+        // MARK: Setting a Background image for TableView
+        /*
+        let backgroundImage = AppImage.defaultImage
+        let imageView = UIImageView(image: _INSERT-STUDENT-IMAGE_)
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .systemTeal
+        studentTable.backgroundView = imageView
+        studentTable.tableFooterView = UIView()
+         */
     }
 
     // MARK: - Actions
     
-    @IBAction func addContact(_ sender: Any) {
+    @IBAction private func addContact(_ sender: Any) {
         
         let sb = UIStoryboard.init(name: StoryboardId.main, bundle: nil)
         if let vc = sb.instantiateViewController(identifier: StoryboardId.createEditVC) as? CreateEditViewController {
@@ -47,6 +59,28 @@ class ViewController: UIViewController {
             vc.studentDelegate = self
             let nav = UINavigationController(rootViewController: vc)
             self.present(nav, animated: true, completion: nil)
+        }
+    }
+    
+    private func insert(char: String, user: Student) {
+        
+        if var contactsForSection = self.studentList[char] {
+            if contactsForSection.count == 0 {
+                // hits if remove last student from section, then add new student to same section
+                self.sections.append(char)
+                self.sections.sort()
+            }
+            
+            // add student to existing section
+            contactsForSection.append((contact: user, isFavorite: false))
+            contactsForSection.sort(by: { "\($0.contact.firstName) \($0.contact.lastName)" < "\($1.contact.firstName) \($1.contact.lastName)" })
+            self.studentList[char] = contactsForSection
+            
+        } else {
+            // first student to enter section
+            self.sections.append(char)
+            self.sections.sort()
+            self.studentList[char] = [(contact: user, isFavorite: false)]
         }
     }
     
@@ -66,38 +100,49 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: - Configure
+    
+    private func loadDataFromPlist() {
+        
+        guard var studentList: [Student] = self.getPlist(withName: "Students") else { return }
+        
+        for (index, student) in studentList.enumerated() {
+            
+            studentList[index].update(withImage: AppImage.defaultImage)
+            if let char = student.firstName.first {
+                self.insert(char: String(char), user: studentList[index])
+            }
+        }
+    }
+    
+    private func getPlist<T: Decodable>(withName name: String) -> T? {
+        
+        guard let path = Bundle.main.path(forResource: name, ofType: "plist"),
+            let data = FileManager.default.contents(atPath: path) else { return nil }
+        do {
+            /// with PropertyListSerialization
+            /*  let dataFromList = try PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: nil)
+                return dataFromList as? [[String: Any]] */
+            
+            /// with PropertyListDecoder
+            let obj = try PropertyListDecoder().decode(T.self, from: data)
+            return obj
+        } catch let error {
+            print(error)
+        }
+        return nil
+    }
 }
 
 // MARK: - UpdateUserProtocol
 
-extension ViewController: UpdateStudentDelegate {
+extension ListViewController: UpdateStudentDelegate {
     
-    func updateStudent(student: Student?, at index: (section:String, row:Int)?) {
+    func updateStudent(student: Student?, at index: (section: String, row: Int)?) {
         
         if let user = student,
            let char = user.firstName.first?.uppercased() {
-                
-            func insert(char: String, user: Student) {
-                if var contactsForSection = self.studentList[char] {
-                    
-                    if contactsForSection.count == 0 {
-                        // hits if remove last student from section, then add new student to same section
-                        self.sections.append(char)
-                        self.sections.sort()
-                    }
-                    
-                    // add student to existing section
-                    contactsForSection.append((contact: user, isFavorite: false))
-                    contactsForSection.sort(by: { "\($0.contact.firstName) \($0.contact.lastName)" < "\($1.contact.firstName) \($1.contact.lastName)" })
-                    self.studentList[char] = contactsForSection
-                    
-                } else {
-                    // first student to enter section
-                    self.sections.append(char)
-                    self.sections.sort()
-                    self.studentList[char] = [(contact: user, isFavorite: false)]
-                }
-            }
             
             if let index = index {
                 // Edited student
@@ -124,7 +169,7 @@ extension ViewController: UpdateStudentDelegate {
 
 // MARK: - UITableViewDelegate
 
-extension ViewController: UITableViewDelegate {
+extension ListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -133,7 +178,7 @@ extension ViewController: UITableViewDelegate {
 
 // MARK: - UITableViewDataSource
 
-extension ViewController: UITableViewDataSource {
+extension ListViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.sections.count

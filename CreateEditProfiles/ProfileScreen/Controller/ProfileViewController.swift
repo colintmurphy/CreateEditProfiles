@@ -37,7 +37,7 @@ class ProfileViewController: UIViewController {
     
     // MARK: - ACTIONS
     
-    @IBAction func edit(_ sender: Any) {
+    @IBAction private func edit(_ sender: Any) {
         
         let sb = UIStoryboard.init(name: StoryboardId.main, bundle: nil)
         if let vc = sb.instantiateViewController(identifier: StoryboardId.createEditVC) as? CreateEditViewController {
@@ -49,7 +49,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func callUser() {
+    private func callUser() {
         
         if let phone = self.student?.phone {
             if let url = URL(string: "tel://+\(phone)"),
@@ -65,7 +65,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func emailUser() {
+    private func emailUser() {
         
         guard MFMailComposeViewController.canSendMail() else {
             self.showAlert(title: "Sorry", message: "Looks like we could not process your email at this time.")
@@ -79,7 +79,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    func messageUser() {
+    private func messageUser() {
         
         guard MFMessageComposeViewController.canSendText() else {
             self.showAlert(title: "Sorry", message: "Looks like we could not process your message at this time.")
@@ -95,7 +95,7 @@ class ProfileViewController: UIViewController {
     
     // MARK: - SETUP
     
-    func setupInfo() {
+    private func setupInfo() {
         
         if let user = self.student {
             self.nameLabel.text = "\(user.firstName) \(user.lastName)"
@@ -108,7 +108,7 @@ class ProfileViewController: UIViewController {
         self.buttons.append((title: "email", image: AppImage.email, type: .email))
     }
     
-    func setupTable() {
+    private func setupTable() {
         
         self.infoTable.register(UINib(nibName: NibId.infoTableCell, bundle: nil), forCellReuseIdentifier: CellId.infoTableCell)
         self.infoTable.allowsSelection = false
@@ -120,7 +120,7 @@ class ProfileViewController: UIViewController {
         self.buttonCollectionView.reloadData()
     }
     
-    func setupUI() {
+    private func setupUI() {
         
         self.studentImage.layer.cornerRadius = self.studentImage.bounds.height/2
         self.studentImage.backgroundColor = .systemGray4
@@ -152,7 +152,7 @@ extension ProfileViewController: UpdateStudentDelegate {
             self.infoTable.reloadData()
             
             if let index = self.studentIndex,
-               let vc = self.navigationController?.viewControllers[0] as? ViewController {
+               let vc = self.navigationController?.viewControllers[0] as? ListViewController {
                 vc.updateStudent(student: user, at: index)
             }
         }

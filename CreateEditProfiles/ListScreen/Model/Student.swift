@@ -7,11 +7,23 @@
 
 import UIKit
 
-struct Student {
+struct Student: Decodable {
     
     var firstName: String
     var lastName: String
     var phone: String
     var email: String
-    var profileImage: UIImage
+    var profileImage: UIImage?
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case firstName
+        case lastName
+        case phone
+        case email
+    }
+    
+    mutating func update(withImage image: UIImage) {
+        self.profileImage = image
+    }
 }

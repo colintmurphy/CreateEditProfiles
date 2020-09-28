@@ -35,15 +35,15 @@ class CreateEditViewController: UIViewController {
     
     // MARK: - ACTIONS
     
-    @IBAction func setPhoto(_ sender: Any) {
+    @IBAction private func setPhoto(_ sender: Any) {
         self.showImagePickerControllerActionSheet()
     }
     
-    @objc func cancelButton() {
+    @objc private func cancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func doneButton() {
+    @objc private func doneButton() {
         
         if let isValidFirstName = student?.firstName.isValidName(),
            let isValidLastName = student?.lastName.isValidName(),
@@ -68,7 +68,7 @@ class CreateEditViewController: UIViewController {
     
     // MARK: - SETUP
     
-    func setupInfo() {
+    private func setupInfo() {
         
         if let user = self.student {
             self.studentImageView.image = user.profileImage
@@ -87,7 +87,7 @@ class CreateEditViewController: UIViewController {
         }
     }
     
-    func setupTable() {
+    private func setupTable() {
         
         self.infoTable.register(UINib(nibName: NibId.infoTableCell, bundle: nil), forCellReuseIdentifier: CellId.infoTableCell)
         self.infoTable.allowsSelection = false
@@ -96,7 +96,7 @@ class CreateEditViewController: UIViewController {
         self.infoTable.reloadData()
     }
     
-    func setupUI() {
+    private func setupUI() {
         
         let cancel = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButton))
         let done = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButton))
@@ -122,14 +122,14 @@ class CreateEditViewController: UIViewController {
     
     // MARK: - Keyboard
     
-    @objc func dismissKeyboard() {
+    @objc private func dismissKeyboard() {
         
         self.infoTable.contentOffset = .zero
         self.activeTextField = nil
         self.view.endEditing(true)
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc private func keyboardWillShow(notification: NSNotification) {
         
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             
@@ -222,13 +222,13 @@ extension CreateEditViewController: UIImagePickerControllerDelegate, UINavigatio
         
         if let editedImage = info[.editedImage] as? UIImage {
             self.studentImageView.image = editedImage
-            self.student?.profileImage = editedImage
+            self.student?.update(withImage: editedImage)
         } else if let originalImage = info[.originalImage] as? UIImage {
             self.studentImageView.image = originalImage
-            self.student?.profileImage = originalImage
+            self.student?.update(withImage: originalImage)
         } else {
             self.studentImageView.image = AppImage.defaultImage
-            self.student?.profileImage = AppImage.defaultImage
+            self.student?.update(withImage: AppImage.defaultImage)
         }
         self.dismiss(animated: true, completion: nil)
     }

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>lastName</key>
+		<string>Williams</string>
+		<key>firstName</key>
+		<string>Dave</string>
+		<key>email</key>
+		<string>dave@gmail.com</string>
+		<key>phone</key>
+		<string>19993333</string>
+	</dict>
+	<dict>
+		<key>lastName</key>
+		<string>Murphy</string>
+		<key>firstName</key>
+		<string>Colin</string>
+		<key>email</key>
+		<string>colin@gmail.com</string>
+		<key>phone</key>
+		<string>12223333</string>
+	</dict>
+	<dict>
+		<key>lastName</key>
+		<string>John</string>
+		<key>firstName</key>
+		<string>Jimmy</string>
+		<key>email</key>
+		<string>jj@gmail.com</string>
+		<key>phone</key>
+		<string>12224444</string>
+	</dict>
+	<dict>
+		<key>lastName</key>
+		<string>Miller</string>
+		<key>firstName</key>
+		<string>Ken</string>
+		<key>email</key>
+		<string>ken@gmail.com</string>
+		<key>phone</key>
+		<string>14443333</string>
+	</dict>
+	<dict>
+		<key>lastName</key>
+		<string>Fike</string>
+		<key>firstName</key>
+		<string>Max</string>
+		<key>email</key>
+		<string>max@gmail.com</string>
+		<key>phone</key>
+		<string>17773333</string>
+	</dict>
+	<dict>
+		<key>lastName</key>
+		<string>Wilson</string>
+		<key>firstName</key>
+		<string>Brett</string>
+		<key>email</key>
+		<string>brett@gmail.com</string>
+		<key>phone</key>
+		<string>12228888</string>
+	</dict>
+</array>
+</plist>
