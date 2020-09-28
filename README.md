@@ -13,7 +13,7 @@
 - Buttons are added using UICollectionViewCells
 - Cells are created in Xib files
 
-## Utalizes
+## Utilizes
 - UIImagePickerControllerDelegate
 - MFMailComposeViewControllerDelegate
 - MFMessageComposeViewControllerDelegate
