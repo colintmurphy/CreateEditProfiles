@@ -8,6 +8,7 @@
 import Foundation
 
 enum TextFieldType {
+    
     case firstName
     case lastName
     case email

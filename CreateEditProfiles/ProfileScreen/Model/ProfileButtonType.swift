@@ -8,6 +8,7 @@
 import Foundation
 
 enum ProfileButtonType {
+    
     case message
     case email
     case phone

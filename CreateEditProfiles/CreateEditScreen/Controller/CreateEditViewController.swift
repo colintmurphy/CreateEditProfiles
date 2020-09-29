@@ -11,17 +11,17 @@ class CreateEditViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var infoTable: UITableView!
-    @IBOutlet weak var studentImageView: UIImageView!
-    @IBOutlet weak var customBackgroundView: UIView!
-    @IBOutlet weak var photoButton: UIButton!
+    @IBOutlet private weak var infoTable: UITableView!
+    @IBOutlet private weak var studentImageView: UIImageView!
+    @IBOutlet private weak var customBackgroundView: UIView!
+    @IBOutlet private weak var photoButton: UIButton!
     
     // MARK: - Class Variables
     
-    weak var studentDelegate: UpdateStudentDelegate?
-    var activeTextField: UITextField?
-    var infoList: [(title: String, info: String, type: TextFieldType)] = []
     var student: Student?
+    weak var studentDelegate: UpdateStudentDelegate?
+    private var activeTextField: UITextField?
+    private var infoList: [(title: String, info: String, type: TextFieldType)] = []
     
     // MARK: - View Life Cycles
     
@@ -155,32 +155,13 @@ extension CreateEditViewController: UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellId.infoTableCell) as? InfoTableViewCell else { fatalError("Could not create InfoTableViewCell") }
         
-        let fieldType = self.infoList[indexPath.row].type
-        cell.cellInfoTextField.fieldType = fieldType
         cell.infoDelegate = self
         cell.cellInfoTextField.delegate = self
-        cell.cellInfoTextField.keyboardType = .default
-        cell.cellInfoTextField.clearButtonMode = .whileEditing
-        cell.cellInfoTextField.autocapitalizationType = .words
-        cell.cellInfoTextField.accessibilityIdentifier = "name"
         
-        switch fieldType {
-        case .firstName:
-            cell.cellInfoTextField.text = self.student?.firstName
-        case .lastName:
-            cell.cellInfoTextField.text = self.student?.lastName
-        case .email:
-            cell.cellInfoTextField.keyboardType = .emailAddress
-            cell.cellInfoTextField.autocapitalizationType = .none
-            cell.cellInfoTextField.accessibilityIdentifier = "email"
-            cell.cellInfoTextField.text = self.student?.email
-        case .phone:
-            cell.cellInfoTextField.keyboardType = .phonePad
-            cell.cellInfoTextField.accessibilityIdentifier = "phone"
-            cell.cellInfoTextField.text = self.student?.phone
+        if let student = self.student {
+            cell.setupCreateInfo(type: self.infoList[indexPath.row].type, title: self.infoList[indexPath.row].title, student: student)
         }
         
-        cell.cellLabel.text = self.infoList[indexPath.row].title
         return cell
     }
 }

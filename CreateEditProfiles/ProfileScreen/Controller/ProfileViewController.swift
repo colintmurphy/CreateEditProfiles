@@ -12,16 +12,16 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var infoTable: UITableView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var studentImage: UIImageView!
-    @IBOutlet weak var customBackgroundView: UIView!
-    @IBOutlet weak var buttonCollectionView: UICollectionView!
+    @IBOutlet private weak var infoTable: UITableView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var studentImage: UIImageView!
+    @IBOutlet private weak var customBackgroundView: UIView!
+    @IBOutlet private weak var buttonCollectionView: UICollectionView!
     
     // MARK: - Class Variables
     
-    var infoList: [(title: String, info: String, type: ProfileButtonType)] = []
-    var buttons: [(title: String, image: UIImage, type: ProfileButtonType)] = []
+    private var infoList: [(title: String, info: String, type: ProfileButtonType)] = []
+    private var buttons: [(title: String, image: UIImage, type: ProfileButtonType)] = []
     var studentIndex: (section:String, row:Int)?
     var student: Student?
 
@@ -167,7 +167,7 @@ extension ProfileViewController: UICollectionViewDelegate {
         
         let cell = collectionView.cellForItem(at: indexPath) as? ProfileButtonCollectionViewCell
         
-        switch cell?.buttonType {
+        switch cell?.getButtonType() {
         case .email:
             self.emailUser()
         case.phone:
@@ -192,9 +192,8 @@ extension ProfileViewController: UICollectionViewDataSource {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellId.profileCollectionCell, for: indexPath) as? ProfileButtonCollectionViewCell else { fatalError("Could not create ProfileButtonCollectionViewCell") }
         
-        cell.buttonType = self.buttons[indexPath.row].type
-        cell.buttonLabel.text = self.buttons[indexPath.row].title
-        cell.buttonImageView.image =  self.buttons[indexPath.row].image
+        cell.set(type: self.buttons[indexPath.row].type, label: self.buttons[indexPath.row].title, image: self.buttons[indexPath.row].image)
+        
         return cell
     }
 }
@@ -210,10 +209,7 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellId.infoTableCell) as? InfoTableViewCell else { fatalError("Could not create InfoTableViewCell") }
-        
-        cell.cellLabel.text = self.infoList[indexPath.row].title
-        cell.cellInfoTextField.text = self.infoList[indexPath.row].info
-        cell.cellInfoTextField.isUserInteractionEnabled = false // can't edit textField
+        cell.setupProfileViewInfo(label: self.infoList[indexPath.row].title, info: self.infoList[indexPath.row].info)
         return cell
     }
 }

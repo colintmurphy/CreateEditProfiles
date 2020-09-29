@@ -9,8 +9,8 @@ import UIKit
 
 class UserTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var studentNameLabel: UILabel!
+    @IBOutlet private weak var profileImageView: UIImageView!
+    @IBOutlet private weak var studentNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,7 +21,14 @@ class UserTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure() {
+    func set(name: String, image: UIImage) {
+        
+        self.studentNameLabel.text = name
+        self.profileImageView.image = image
+    }
+    
+    private func configure() {
+
         self.profileImageView.backgroundColor = .systemGray4
         self.profileImageView.layer.borderWidth = 1
         self.profileImageView.layer.borderColor = UIColor.systemGray.cgColor

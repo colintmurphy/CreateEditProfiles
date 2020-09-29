@@ -180,7 +180,7 @@ class ListViewController: UIViewController {
         
         guard let path = Bundle.main.path(forResource: name, ofType: "json") else { return nil }
         do {
-            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            let data = try NSData(contentsOfFile: path, options: .mappedIfSafe) as Data
             let model = try JSONDecoder().decode(T.self, from: data)
             return model
         } catch let error {
@@ -289,9 +289,11 @@ extension ListViewController: UITableViewDataSource {
         if self.sections.count > 0 {
             let key = self.sections[indexPath.section]
             
-            if let user = self.studentList[key]?[indexPath.row] {
-                cell.studentNameLabel.text = "\(user.contact.firstName) \(user.contact.lastName)"
-                cell.profileImageView.image = user.contact.profileImage
+            if let user = self.studentList[key]?[indexPath.row],
+               let image = user.contact.profileImage {
+                
+                let name = "\(user.contact.firstName) \(user.contact.lastName)"
+                cell.set(name: name, image: image)
             }
         }
         return cell
