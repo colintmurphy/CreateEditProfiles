@@ -24,6 +24,9 @@
 		2177A7862516A174003207E8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2177A7852516A174003207E8 /* Constants.swift */; };
 		217B5B70251E540000731A23 /* ProfileButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217B5B6F251E540000731A23 /* ProfileButtonType.swift */; };
 		21B7E052252271F50006AE86 /* Students.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21B7E051252271F50006AE86 /* Students.plist */; };
+		21B7E05925228AB80006AE86 /* Students.txt in Resources */ = {isa = PBXBuildFile; fileRef = 21B7E05825228AB80006AE86 /* Students.txt */; };
+		21B7E05E25236DF50006AE86 /* Students.json in Resources */ = {isa = PBXBuildFile; fileRef = 21B7E05D25236DF50006AE86 /* Students.json */; };
+		21B7E061252374030006AE86 /* Students.xml in Resources */ = {isa = PBXBuildFile; fileRef = 21B7E060252374030006AE86 /* Students.xml */; };
 		21FB32912514EC6A00A4C478 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FB32902514EC6A00A4C478 /* ProfileViewController.swift */; };
 		21FB32952514EC8700A4C478 /* CreateEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FB32942514EC8700A4C478 /* CreateEditViewController.swift */; };
 		21FB329D2514ECD800A4C478 /* InfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FB329C2514ECD800A4C478 /* InfoTableViewCell.swift */; };
@@ -53,6 +56,9 @@
 		2177A7852516A174003207E8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		217B5B6F251E540000731A23 /* ProfileButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileButtonType.swift; sourceTree = "<group>"; };
 		21B7E051252271F50006AE86 /* Students.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Students.plist; sourceTree = "<group>"; };
+		21B7E05825228AB80006AE86 /* Students.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Students.txt; sourceTree = "<group>"; };
+		21B7E05D25236DF50006AE86 /* Students.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Students.json; sourceTree = "<group>"; };
+		21B7E060252374030006AE86 /* Students.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Students.xml; sourceTree = "<group>"; };
 		21FB32902514EC6A00A4C478 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		21FB32942514EC8700A4C478 /* CreateEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditViewController.swift; sourceTree = "<group>"; };
 		21FB329C2514ECD800A4C478 /* InfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -257,6 +263,9 @@
 			isa = PBXGroup;
 			children = (
 				21B7E051252271F50006AE86 /* Students.plist */,
+				21B7E05825228AB80006AE86 /* Students.txt */,
+				21B7E05D25236DF50006AE86 /* Students.json */,
+				21B7E060252374030006AE86 /* Students.xml */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -355,11 +364,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				2165D3122514EB49009C9E0E /* LaunchScreen.storyboard in Resources */,
+				21B7E05925228AB80006AE86 /* Students.txt in Resources */,
 				21FB32A32514ED4400A4C478 /* InfoTableViewCell.xib in Resources */,
 				2165D30F2514EB49009C9E0E /* Assets.xcassets in Resources */,
 				21FB32AD2514F22600A4C478 /* ProfileButton.xib in Resources */,
 				21B7E052252271F50006AE86 /* Students.plist in Resources */,
+				21B7E061252374030006AE86 /* Students.xml in Resources */,
 				2165D30D2514EB48009C9E0E /* Main.storyboard in Resources */,
+				21B7E05E25236DF50006AE86 /* Students.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

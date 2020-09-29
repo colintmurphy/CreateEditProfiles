@@ -11,13 +11,13 @@ class ListViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var studentTable: UITableView!
-    @IBOutlet weak var emptyListLabel: UILabel!
+    @IBOutlet private weak var studentTable: UITableView!
+    @IBOutlet private weak var emptyListLabel: UILabel!
     
     // MARK: - Class Variables
     
-    var sections: [String] = []
-    var studentList: [String: [(contact: Student, isFavorite: Bool)]] = [:] {
+    private var sections: [String] = []
+    private var studentList: [String: [(contact: Student, isFavorite: Bool)]] = [:] {
         didSet {
             if studentList.count > 0 {
                 self.emptyListLabel.isHidden = true
@@ -30,6 +30,12 @@ class ListViewController: UIViewController {
         }
     }
     
+    private var xmlElementName = ""
+    private var xmlFirstName = ""
+    private var xmlLastName = ""
+    private var xmlEmail = ""
+    private var xmlPhone = ""
+    
     // MARK: - View Life Cycles
     
     override func viewDidLoad() {
@@ -37,6 +43,9 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         self.studentTable.isHidden = true
         self.loadDataFromPlist()
+        self.loadDataFromTextFile()
+        self.loadDataFromJSONFile()
+        self.loadDataFromXMLFile(withName: "Students")
         
         // MARK: Setting a Background image for TableView
         /*
@@ -101,37 +110,107 @@ class ListViewController: UIViewController {
         }
     }
     
-    // MARK: - Configure
+    // MARK: - Load from File
     
     private func loadDataFromPlist() {
         
-        guard var studentList: [Student] = self.getPlist(withName: "Students") else { return }
-        
+        guard var studentList: [Student] = self.getPlistFile(withName: "Students") else { return }
         for (index, student) in studentList.enumerated() {
-            
-            studentList[index].update(withImage: AppImage.defaultImage)
             if let char = student.firstName.first {
+                studentList[index].update(withImage: AppImage.defaultImage)
                 self.insert(char: String(char), user: studentList[index])
             }
         }
     }
     
-    private func getPlist<T: Decodable>(withName name: String) -> T? {
+    private func loadDataFromTextFile() {
+        
+        guard let studentList: String = self.getTextFile(withName: "Students") else { return }
+        self.parseTextFileResults(of: studentList)
+    }
+    
+    private func loadDataFromJSONFile() {
+        
+        guard var studentList: [Student] = self.getJSONFile(withName: "Students") else { return }
+        for (index, student) in studentList.enumerated() {
+            if let char = student.firstName.first {
+                studentList[index].update(withImage: AppImage.defaultImage)
+                self.insert(char: String(char), user: studentList[index])
+            }
+        }
+    }
+    
+    private func loadDataFromXMLFile(withName name: String) {
+        
+        guard let path = Bundle.main.path(forResource: name, ofType: "xml") else { return }
+        if let parser = XMLParser(contentsOf: URL(fileURLWithPath: path)) {
+            parser.delegate = self
+            parser.parse()
+        }
+    }
+    
+    // MARK: - Read File
+    
+    private func getPlistFile<T: Decodable>(withName name: String) -> T? {
         
         guard let path = Bundle.main.path(forResource: name, ofType: "plist"),
             let data = FileManager.default.contents(atPath: path) else { return nil }
         do {
-            /// with PropertyListSerialization
-            /*  let dataFromList = try PropertyListSerialization.propertyList(from: data, options: .mutableContainersAndLeaves, format: nil)
-                return dataFromList as? [[String: Any]] */
-            
-            /// with PropertyListDecoder
             let obj = try PropertyListDecoder().decode(T.self, from: data)
             return obj
         } catch let error {
             print(error)
         }
         return nil
+    }
+    
+    private func getTextFile(withName name: String) -> String? {
+        
+        guard let path = Bundle.main.path(forResource: name, ofType: "txt") else { return nil }
+        do {
+            let dataContent = try String.init(contentsOfFile: path, encoding: .utf8)
+            return dataContent
+        } catch let error {
+            print(error)
+        }
+        return nil
+    }
+    
+    private func getJSONFile<T: Decodable>(withName name: String) -> T? {
+        
+        guard let path = Bundle.main.path(forResource: name, ofType: "json") else { return nil }
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+            let model = try JSONDecoder().decode(T.self, from: data)
+            return model
+        } catch let error {
+            print(error)
+        }
+        return nil
+    }
+    
+    // MARK: - Parsers
+    
+    private func parseTextFileResults(of array: String) {
+        
+        let tempArr = array.components(separatedBy: ",")
+        
+        var arrayOfStrings = [String]()
+        tempArr.forEach { (string) in
+            arrayOfStrings.append(string.self.trimmingCharacters(in: .whitespacesAndNewlines))
+        }
+        
+        for student in arrayOfStrings {
+            let studentArr = student.components(separatedBy: " ")
+            if studentArr.count == 4 {
+                
+                var newStudent = Student(firstName: studentArr[0], lastName: studentArr[1], phone: studentArr[3], email: studentArr[2])
+                newStudent.update(withImage: AppImage.defaultImage)
+                if let char = studentArr[0].first {
+                    self.insert(char: String(char), user: newStudent)
+                }
+            }
+        }
     }
 }
 
@@ -216,5 +295,47 @@ extension ListViewController: UITableViewDataSource {
             }
         }
         return cell
+    }
+}
+
+// MARK: - XMLParserDelegate
+
+extension ListViewController: XMLParserDelegate {
+    
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        
+        if elementName == "student" {
+            self.xmlEmail = ""
+            self.xmlFirstName = ""
+            self.xmlLastName = ""
+            self.xmlPhone = ""
+        }
+        self.xmlElementName = elementName
+    }
+    
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        
+       if elementName == "student" {
+           var student = Student(firstName: self.xmlFirstName, lastName: self.xmlLastName, phone: self.xmlPhone, email: self.xmlEmail)
+           student.update(withImage: AppImage.defaultImage)
+           if let char = self.xmlFirstName.first {
+               self.insert(char: String(char), user: student)
+           }
+       }
+    }
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        
+        let data = string.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        if self.xmlElementName == "email" {
+            self.xmlEmail += data
+        } else if self.xmlElementName == "firstName" {
+            self.xmlFirstName += data
+        } else if self.xmlElementName == "lastName" {
+            self.xmlLastName += data
+        } else if self.xmlElementName == "phone" {
+            self.xmlPhone += data
+        }
     }
 }

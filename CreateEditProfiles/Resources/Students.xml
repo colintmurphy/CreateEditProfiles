@@ -1,0 +1,14 @@
+<root>
+    <student>
+        <email>sams@yahoo.com</email>
+        <firstName>Sam</firstName>
+        <lastName>Smith</lastName>
+        <phone>16542244</phone>
+    </student>
+    <student>
+        <email>billford@yahoo.com</email>
+        <firstName>Bill</firstName>
+        <lastName>Ford</lastName>
+        <phone>19095544</phone>
+    </student>
+</root>
