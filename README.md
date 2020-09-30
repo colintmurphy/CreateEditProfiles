@@ -24,6 +24,6 @@
 ## Images
 
 <p align="center">
-  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/ezgif.com-gif-maker%20(5).gif" />
-  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/ezgif.com-gif-maker%20(6).gif" />
+  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/ezgif.com-gif-maker%20(5).gif" height="600" />
+  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/ezgif.com-gif-maker%20(6).gif" height="600" />
 </p>
