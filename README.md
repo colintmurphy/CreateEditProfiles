@@ -24,9 +24,6 @@
 ## Images
 
 <p align="center">
-  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-09-19%20at%2022.15.02.png" />
-  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-09-19%20at%2022.15.08.png" />
-  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-09-19%20at%2022.15.15.png" />
-  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-09-19%20at%2022.15.19.png" />
-  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-09-19%20at%2022.15.40.png" />
+  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/ezgif.com-gif-maker%20(5).gif" />
+  <img src="https://github.com/colintmurphy/CreateEditProfiles/blob/main/images/ezgif.com-gif-maker%20(6).gif" />
 </p>
