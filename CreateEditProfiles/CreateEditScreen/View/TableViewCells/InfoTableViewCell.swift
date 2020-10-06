@@ -10,7 +10,7 @@ import UIKit
 class InfoTableViewCell: UITableViewCell {
     
     @IBOutlet private weak var cellLabel: UILabel!
-    @IBOutlet weak var cellInfoTextField: CustomTextField!
+    @IBOutlet private weak var cellInfoTextField: CustomTextField!
     
     weak var infoDelegate: InfoTableViewCellDelegate?
     
@@ -33,8 +33,9 @@ class InfoTableViewCell: UITableViewCell {
         self.cellInfoTextField.isUserInteractionEnabled = false
     }
     
-    func setupCreateInfo(type: TextFieldType, title: String, student: Student) {
+    func setupCreateInfo(type: TextFieldType, title: String, student: Student, delegateTF: CreateEditViewController) {
         
+        self.cellInfoTextField.delegate = delegateTF
         self.cellLabel.text = title
         self.cellInfoTextField.fieldType = type
         self.cellInfoTextField.keyboardType = .default
@@ -45,13 +46,16 @@ class InfoTableViewCell: UITableViewCell {
         switch type {
         case .firstName:
             self.cellInfoTextField.text = student.firstName
+            
         case .lastName:
             self.cellInfoTextField.text = student.lastName
+            
         case .email:
             self.cellInfoTextField.keyboardType = .emailAddress
             self.cellInfoTextField.autocapitalizationType = .none
             self.cellInfoTextField.accessibilityIdentifier = "email"
             self.cellInfoTextField.text = student.email
+            
         case .phone:
             self.cellInfoTextField.keyboardType = .phonePad
             self.cellInfoTextField.accessibilityIdentifier = "phone"

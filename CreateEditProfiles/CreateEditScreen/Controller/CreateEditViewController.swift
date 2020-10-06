@@ -106,13 +106,17 @@ class CreateEditViewController: UIViewController {
         self.customBackgroundView.addGradient(to: self.customBackgroundView, with: [0.0, 1.0])
         
         self.photoButton.backgroundColor = AppColor.primaryColor
-        self.photoButton.layer.cornerRadius = self.photoButton.bounds.height/2
+        self.photoButton.layer.cornerRadius = self.photoButton.bounds.height / 2
         self.photoButton.contentVerticalAlignment = .fill
         self.photoButton.contentHorizontalAlignment = .fill
         self.photoButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         
-        self.studentImageView.backgroundColor = .systemGray4
-        self.studentImageView.layer.cornerRadius = self.studentImageView.bounds.height/2
+        if #available(iOS 13.0, *) {
+            self.studentImageView.backgroundColor = .systemGray4
+        } else {
+            self.studentImageView.backgroundColor = .gray
+        }
+        self.studentImageView.layer.cornerRadius = self.studentImageView.bounds.height / 2
         self.studentImageView.layer.borderWidth = 1.0
         self.studentImageView.layer.borderColor = UIColor.systemGray.cgColor
         
@@ -156,10 +160,9 @@ extension CreateEditViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellId.infoTableCell) as? InfoTableViewCell else { fatalError("Could not create InfoTableViewCell") }
         
         cell.infoDelegate = self
-        cell.cellInfoTextField.delegate = self
         
         if let student = self.student {
-            cell.setupCreateInfo(type: self.infoList[indexPath.row].type, title: self.infoList[indexPath.row].title, student: student)
+            cell.setupCreateInfo(type: self.infoList[indexPath.row].type, title: self.infoList[indexPath.row].title, student: student, delegateTF: self)
         }
         
         return cell
@@ -182,10 +185,10 @@ extension CreateEditViewController: UIImagePickerControllerDelegate, UINavigatio
     func showImagePickerControllerActionSheet() {
         
         let alert = UIAlertController(title: "Choose an image", message: nil, preferredStyle: .actionSheet)
-        let photoLibraryAction = UIAlertAction(title: "Choose from library", style: .default) { (action) in
+        let photoLibraryAction = UIAlertAction(title: "Choose from library", style: .default) { _ in
             self.showImagePickerController(sourceType: .photoLibrary)
         }
-        let cameraAction = UIAlertAction(title: "Take photo", style: .default) { (action) in
+        let cameraAction = UIAlertAction(title: "Take photo", style: .default) { _ in
             self.showImagePickerController(sourceType: .camera)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -199,7 +202,7 @@ extension CreateEditViewController: UIImagePickerControllerDelegate, UINavigatio
         self.present(alert, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         if let editedImage = info[.editedImage] as? UIImage {
             self.studentImageView.image = editedImage
@@ -222,15 +225,13 @@ extension CreateEditViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
         // if deleting: allow it
-        if range.lowerBound+1 == range.upperBound { return true }
+        if range.lowerBound + 1 == range.upperBound { return true }
         
         if textField.accessibilityIdentifier == "name" {
             if textField.text?.count ?? 0 >= 25 { return false }
-            
         } else if textField.accessibilityIdentifier == "phone" {
             if textField.text?.count ?? 0 >= 12 { return false }
             if string != "+" && Int(string) == nil { return false }
-            
         } else if textField.accessibilityIdentifier == "email" {
             if string == " " || textField.text?.count ?? 0 >= 60 && range.upperBound < 61 { return false }
         }
@@ -257,12 +258,16 @@ extension CreateEditViewController: InfoTableViewCellDelegate {
         switch textField.fieldType {
         case .firstName:
             self.student?.firstName = text
+            
         case .lastName:
             self.student?.lastName = text
+            
         case .email:
             self.student?.email = text
+            
         case .phone:
             self.student?.phone = text
+            
         case .none:
             break
         }

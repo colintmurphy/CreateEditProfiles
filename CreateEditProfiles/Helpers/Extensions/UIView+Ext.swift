@@ -11,7 +11,7 @@ extension UIView {
     
     func addGradient(to view: UIView, with range: [NSNumber]) {
         
-        let colorTop =  UIColor.clear.cgColor
+        let colorTop = UIColor.clear.cgColor
         let colorBottom = AppColor.primaryColor.cgColor
         
         let gradientBackground = CAGradientLayer()

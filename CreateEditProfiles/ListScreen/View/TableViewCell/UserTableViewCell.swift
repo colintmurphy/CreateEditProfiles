@@ -29,9 +29,13 @@ class UserTableViewCell: UITableViewCell {
     
     private func configure() {
 
-        self.profileImageView.backgroundColor = .systemGray4
+        if #available(iOS 13.0, *) {
+            self.profileImageView.backgroundColor = .systemGray4
+        } else {
+            self.profileImageView.backgroundColor = .gray
+        }
         self.profileImageView.layer.borderWidth = 1
         self.profileImageView.layer.borderColor = UIColor.systemGray.cgColor
-        self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.height/2
+        self.profileImageView.layer.cornerRadius = self.profileImageView.bounds.height / 2
     }
 }

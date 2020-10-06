@@ -7,35 +7,39 @@
 
 import UIKit
 
+enum Constants { }
+
 enum AppImage {
     
-    static let defaultImage: UIImage!   = UIImage(named: "icons8-user")
-    static let email: UIImage!          = UIImage(named: "icons8-secured_letter")
-    static let message: UIImage!        = UIImage(named: "icons8-speech")
-    static let call: UIImage!           = UIImage(named: "icons8-phone")
+    static let defaultImage: UIImage! = UIImage(named: "icons8-user")
+    static let email: UIImage! = UIImage(named: "icons8-secured_letter")
+    static let message: UIImage! = UIImage(named: "icons8-speech")
+    static let call: UIImage! = UIImage(named: "icons8-phone")
 }
 
 enum AppColor {
-    static let primaryColor             = UIColor.systemTeal
+    static let primaryColor = UIColor.systemTeal
 }
 
 enum CellId {
     
-    static let infoTableCell            = "InfoTableViewCell"
-    static let profileCollectionCell    = "ProfileButtonCollectionViewCell"
-    static let userTableCell            = "UserTableViewCell"
+    static let infoTableCell = "InfoTableViewCell"
+    static let profileCollectionCell = "ProfileButtonCollectionViewCell"
+    static let userTableCell = "UserTableViewCell"
 }
 
 enum NibId {
-    static let infoTableCell            = "InfoTableViewCell"
-    static let profileCollectionCell    = "ProfileButton"
+    
+    static let infoTableCell = "InfoTableViewCell"
+    static let profileCollectionCell = "ProfileButton"
 }
 
 enum StoryboardId {
-    static let main                     = "Main"
-    static let createEditVC             = "CreateEditViewController"
+    
+    static let main = "Main"
+    static let createEditVC = "CreateEditViewController"
 }
 
 enum SegueId {
-    static let toProfile                = "toProfile"
+    static let toProfile = "toProfile"
 }

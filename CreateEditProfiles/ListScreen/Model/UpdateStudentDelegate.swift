@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol UpdateStudentDelegate: class {
-    func updateStudent(student: Student?, at index: (section:String, row:Int)?)
+protocol UpdateStudentDelegate: AnyObject {
+    func updateStudent(student: Student?, at index: (section: String, row: Int)?)
 }

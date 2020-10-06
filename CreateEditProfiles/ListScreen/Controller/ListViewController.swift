@@ -19,7 +19,7 @@ class ListViewController: UIViewController {
     private var sections: [String] = []
     private var studentList: [String: [(contact: Student, isFavorite: Bool)]] = [:] {
         didSet {
-            if studentList.count > 0 {
+            if !studentList.isEmpty {
                 self.emptyListLabel.isHidden = true
                 self.studentTable.isHidden = false
                 self.studentTable.reloadData()
@@ -62,11 +62,11 @@ class ListViewController: UIViewController {
     
     @IBAction private func addContact(_ sender: Any) {
         
-        let sb = UIStoryboard.init(name: StoryboardId.main, bundle: nil)
-        if let vc = sb.instantiateViewController(identifier: StoryboardId.createEditVC) as? CreateEditViewController {
+        let story = UIStoryboard(name: StoryboardId.main, bundle: nil)
+        if let createEditVC = story.instantiateViewController(withIdentifier: StoryboardId.createEditVC) as? CreateEditViewController {
             
-            vc.studentDelegate = self
-            let nav = UINavigationController(rootViewController: vc)
+            createEditVC.studentDelegate = self
+            let nav = UINavigationController(rootViewController: createEditVC)
             self.present(nav, animated: true, completion: nil)
         }
     }
@@ -74,7 +74,7 @@ class ListViewController: UIViewController {
     private func insert(char: String, user: Student) {
         
         if var contactsForSection = self.studentList[char] {
-            if contactsForSection.count == 0 {
+            if !contactsForSection.isEmpty {
                 // hits if remove last student from section, then add new student to same section
                 self.sections.append(char)
                 self.sections.sort()
@@ -82,9 +82,10 @@ class ListViewController: UIViewController {
             
             // add student to existing section
             contactsForSection.append((contact: user, isFavorite: false))
-            contactsForSection.sort(by: { "\($0.contact.firstName) \($0.contact.lastName)" < "\($1.contact.firstName) \($1.contact.lastName)" })
+            contactsForSection.sort {
+                ($0.contact.firstName + $0.contact.lastName) < ($1.contact.firstName + $1.contact.lastName)
+            }
             self.studentList[char] = contactsForSection
-            
         } else {
             // first student to enter section
             self.sections.append(char)
@@ -168,7 +169,7 @@ class ListViewController: UIViewController {
         
         guard let path = Bundle.main.path(forResource: name, ofType: "txt") else { return nil }
         do {
-            let dataContent = try String.init(contentsOfFile: path, encoding: .utf8)
+            let dataContent = try String(contentsOfFile: path, encoding: .utf8)
             return dataContent
         } catch let error {
             print(error)
@@ -196,7 +197,7 @@ class ListViewController: UIViewController {
         let tempArr = array.components(separatedBy: ",")
         
         var arrayOfStrings = [String]()
-        tempArr.forEach { (string) in
+        tempArr.forEach { string in
             arrayOfStrings.append(string.self.trimmingCharacters(in: .whitespacesAndNewlines))
         }
         
@@ -228,8 +229,9 @@ extension ListViewController: UpdateStudentDelegate {
                 if index.section == char {
                     // IF the student's first name did not change
                     self.studentList[char]?[index.row].contact = user
-                    self.studentList[char]?.sort(by: { "\($0.contact.firstName) \($0.contact.lastName)" < "\($1.contact.firstName) \($1.contact.lastName)" })
-                    
+                    self.studentList[char]?.sort {
+                        ($0.contact.firstName + $0.contact.lastName) < ($1.contact.firstName + $1.contact.lastName)
+                    }
                 } else {
                     // student's first name DID change
                     insert(char: char, user: user)
@@ -273,7 +275,7 @@ extension ListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if self.sections.count > 0 {
+        if !self.sections.isEmpty {
             let key = self.sections[section]
             if let count = self.studentList[key]?.count {
                 return count
@@ -286,7 +288,7 @@ extension ListViewController: UITableViewDataSource {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CellId.userTableCell) as? UserTableViewCell else { fatalError("Could not create UserTableViewCell") }
         
-        if self.sections.count > 0 {
+        if !self.sections.isEmpty {
             let key = self.sections[indexPath.section]
             
             if let user = self.studentList[key]?[indexPath.row],
@@ -304,7 +306,7 @@ extension ListViewController: UITableViewDataSource {
 
 extension ListViewController: XMLParserDelegate {
     
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String] = [:]) {
         
         if elementName == "student" {
             self.xmlEmail = ""

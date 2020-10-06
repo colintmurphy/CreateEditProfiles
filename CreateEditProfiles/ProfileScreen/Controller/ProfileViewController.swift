@@ -22,7 +22,7 @@ class ProfileViewController: UIViewController {
     
     private var infoList: [(title: String, info: String, type: ProfileButtonType)] = []
     private var buttons: [(title: String, image: UIImage, type: ProfileButtonType)] = []
-    var studentIndex: (section:String, row:Int)?
+    var studentIndex: (section: String, row: Int)?
     var student: Student?
 
     // MARK: - View Life Cycles
@@ -39,12 +39,12 @@ class ProfileViewController: UIViewController {
     
     @IBAction private func edit(_ sender: Any) {
         
-        let sb = UIStoryboard.init(name: StoryboardId.main, bundle: nil)
-        if let vc = sb.instantiateViewController(identifier: StoryboardId.createEditVC) as? CreateEditViewController {
+        let story = UIStoryboard(name: StoryboardId.main, bundle: nil)
+        if let createEditVC = story.instantiateViewController(withIdentifier: StoryboardId.createEditVC) as? CreateEditViewController {
             
-            vc.student = self.student
-            vc.studentDelegate = self
-            let nav = UINavigationController(rootViewController: vc)
+            createEditVC.student = self.student
+            createEditVC.studentDelegate = self
+            let nav = UINavigationController(rootViewController: createEditVC)
             self.present(nav, animated: true, completion: nil)
         }
     }
@@ -122,10 +122,14 @@ class ProfileViewController: UIViewController {
     
     private func setupUI() {
         
-        self.studentImage.layer.cornerRadius = self.studentImage.bounds.height/2
-        self.studentImage.backgroundColor = .systemGray4
+        self.studentImage.layer.cornerRadius = self.studentImage.bounds.height / 2
         self.studentImage.layer.borderWidth = 1
         self.studentImage.layer.borderColor = UIColor.systemGray.cgColor
+        if #available(iOS 13.0, *) {
+            self.studentImage.backgroundColor = .systemGray4
+        } else {
+            self.studentImage.backgroundColor = .gray
+        }
         self.customBackgroundView.addGradient(to: self.customBackgroundView, with: [0.25, 1.0])
     }
 }
@@ -134,7 +138,7 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UpdateStudentDelegate {
     
-    func updateStudent(student: Student?, at index: (section:String, row:Int)?) {
+    func updateStudent(student: Student?, at index: (section: String, row: Int)?) {
         
         if let user = student {
             
@@ -152,8 +156,8 @@ extension ProfileViewController: UpdateStudentDelegate {
             self.infoTable.reloadData()
             
             if let index = self.studentIndex,
-               let vc = self.navigationController?.viewControllers[0] as? ListViewController {
-                vc.updateStudent(student: user, at: index)
+               let listVC = self.navigationController?.viewControllers[0] as? ListViewController {
+                listVC.updateStudent(student: user, at: index)
             }
         }
     }
@@ -170,10 +174,13 @@ extension ProfileViewController: UICollectionViewDelegate {
         switch cell?.getButtonType() {
         case .email:
             self.emailUser()
+            
         case.phone:
             self.callUser()
+            
         case.message:
             self.messageUser()
+            
         case .none:
             break
         }
@@ -190,7 +197,8 @@ extension ProfileViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellId.profileCollectionCell, for: indexPath) as? ProfileButtonCollectionViewCell else { fatalError("Could not create ProfileButtonCollectionViewCell") }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellId.profileCollectionCell,
+                                                            for: indexPath) as? ProfileButtonCollectionViewCell else { fatalError("Could not create ProfileButtonCollectionViewCell") }
         
         cell.set(type: self.buttons[indexPath.row].type, label: self.buttons[indexPath.row].title, image: self.buttons[indexPath.row].image)
         
@@ -223,6 +231,7 @@ extension ProfileViewController: MFMailComposeViewControllerDelegate {
         switch result {
         case .failed:
             self.showAlert(title: "Sorry", message: "We were unable to send your email :(")
+            
         default:
             self.dismiss(animated: true, completion: nil)
         }
@@ -238,6 +247,7 @@ extension ProfileViewController: MFMessageComposeViewControllerDelegate {
         switch result {
         case .failed:
             self.showAlert(title: "Sorry", message: "We were unable to send your message :(")
+            
         default:
             self.dismiss(animated: true, completion: nil)
         }

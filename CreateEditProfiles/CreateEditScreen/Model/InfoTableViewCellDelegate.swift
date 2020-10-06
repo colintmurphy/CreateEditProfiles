@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol InfoTableViewCellDelegate: class {
+protocol InfoTableViewCellDelegate: AnyObject {
     func didChangeInTextField(_ textField: CustomTextField)
 }

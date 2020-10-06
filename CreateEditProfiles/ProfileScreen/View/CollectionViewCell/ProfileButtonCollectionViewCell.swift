@@ -23,7 +23,7 @@ class ProfileButtonCollectionViewCell: UICollectionViewCell {
     func set(type: ProfileButtonType, label: String, image: UIImage) {
         self.buttonType = type
         self.buttonLabel.text = label
-        self.buttonImageView.image =  image
+        self.buttonImageView.image = image
     }
     
     func getButtonType() -> ProfileButtonType? {
@@ -33,6 +33,6 @@ class ProfileButtonCollectionViewCell: UICollectionViewCell {
     private func configure() {
         
         self.buttonView.backgroundColor = AppColor.primaryColor
-        self.buttonView.layer.cornerRadius = self.buttonView.bounds.height/2
+        self.buttonView.layer.cornerRadius = self.buttonView.bounds.height / 2
     }
 }
